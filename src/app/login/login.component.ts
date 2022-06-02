@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { FormBuilder } from '@angular/forms';
+
 
 
 @Component({
@@ -16,9 +18,14 @@ export class LoginComponent implements OnInit {
  acno=""
  pswd=""
 
- 
+  //form group
+  loginForm = this.fb.group({
+    acno:[''],
+    pswd:['']
+   })
+
 //dependancy injection
-  constructor(private router:Router,private ds:DataService) { }
+  constructor(private router:Router,private ds:DataService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
   }

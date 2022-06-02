@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -15,8 +16,19 @@ export class DashboardComponent implements OnInit {
   pswd1 = ""
   amount1 = ""
 
+   //form group
+   depositForm = this.fb.group({
+    acno:[''],
+    pswd:[''],
+    amount:['']
+  })
+  withdrawForm = this.fb.group({
+    acno1:[''],
+    pswd1:[''],
+    amount1:['']
+  })
 
-  constructor(private ds: DataService) { }
+ constructor(private ds: DataService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
   }
