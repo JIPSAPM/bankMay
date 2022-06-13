@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 
 
@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
 
   //form group
   loginForm = this.fb.group({
-    acno:[''],
-    pswd:['']
+    acno:['', [Validators.required, Validators.pattern('[0-9]*')]],
+    pswd:['',[Validators.required, Validators.pattern('[a-zA-Z0-9]*')]]
    })
 
 //dependancy injection
@@ -30,34 +30,26 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  //userdefind function
-  acnoChange(event:any){
-  this.acno = event.target.value
-  console.log(this.acno);
-  
-}
-
-pswdChange(event:any){
-  this.pswd = event.target.value
-  console.log(this.pswd);
-  
-}
 
 //two way 
 login(){
- var acno = this.acno
-  var pswd = this.pswd
+ var acno = this.loginForm.value.acno
+  var pswd = this.loginForm.value.pswd
 
-const result = this.ds.login(acno,pswd)
+  if(this.loginForm.valid){
+    const result = this.ds.login(acno,pswd)
 
-  if(result){
-     alert("login successfull")
-     this.router.navigateByUrl('dashboard')
-   }
- }  
+    if(result){
+       alert("login successful")
+       this.router.navigateByUrl('dashboard')
+     }
+  
+  }
+  else{
+    alert("Invalid Form")
+  }
 }
-
-
+}
 //template referencing variable
 // login(a:any,p:any) {
 //   console.log(a.value);

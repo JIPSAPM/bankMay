@@ -3,10 +3,21 @@
     <a class="navbar-brand  " href="#" style="color:rgb(85, 98, 237);"><b>&#169; HAFC Bank Pvt.Ltd </b></a>
     <span class="quote text-light">Giving you freedom...</span>
 </nav>
-<h4 style="color: white;">Welcome user!</h4>
+<hr>
+<button class="btn btn-warning"(click)="logout()" style="float:right; margin-right:20px">LOGOUT </button>
 
+<h1 style="color: white;">Welcome {{user}}</h1>
 
-<div class="container col-md-12 mt-0">
+<button class="btn btn-danger"(click)="deleteAccount()" style="float:right; margin-right:20px">DELETE</button>
+
+<h5 style="color: white;">{{lDate|date:'short'}}</h5>
+
+<a routerLink="/transaction" style="color:blue;">View Transaction History</a>
+
+<app-delete-confirm (onCancel)="cancel()" [item]="lacno"></app-delete-confirm>
+<!-- <app-animation-demo></app-animation-demo> -->
+
+<div [ngClass]="lacno?'c1':''" class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
@@ -24,6 +35,10 @@
                             placeholder="Account Number" id="login_accno" required>
 
                     </div>
+                    <div *ngIf="this.depositForm.get('acno')?.touched&&this.depositForm.get('acno')?.errors" style="color:red;">
+						Invalid Account Number
+					</div>
+
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -31,6 +46,10 @@
                         <input type="password" class="form-control" name="pswd"  formControlName="pswd"
                             placeholder="password" id="login_password" required>
                     </div>
+                    <div *ngIf="this.depositForm.get('pswd')?.touched&&this.depositForm.get('pswd')?.errors" style="color:red;">
+						Invalid password
+					</div>
+
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -39,6 +58,10 @@
                             id="login_user" required>
 
                     </div>
+                    <div *ngIf="this.depositForm.get('amount')?.touched&&this.depositForm.get('amount')?.errors" style="color:red;">
+						Invalid Amount
+					</div>
+
 
 
                     <div class="form-group">
@@ -51,7 +74,7 @@
     </div>
 </div>
 
-<div class="container col-md-12 mt-0">
+<div [ngClass]="lacno?'c1':''" class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
@@ -69,6 +92,10 @@
                             placeholder="Account Number" id="login_accno1" required>
 
                     </div>
+                    <div *ngIf="this.withdrawForm.get('acno1')?.touched&&this.withdrawForm.get('acno1')?.errors" style="color:red;">
+						Invalid Account Number
+					</div>
+
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -76,6 +103,11 @@
                         <input type="password" class="form-control" name="pswd1" formControlName="pswd1"
                             placeholder="password" id="login_password" required>
                     </div>
+                    <div *ngIf="this.withdrawForm.get('pswd1')?.touched&&this.withdrawForm.get('pswd1')?.errors" style="color:red;">
+						Invalid paswsword
+					</div>
+
+
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -84,6 +116,10 @@
                             id="login_user" required>
 
                     </div>
+                    <div *ngIf="this.withdrawForm.get('amount1')?.touched&&this.withdrawForm.get('amount1')?.errors" style="color:red;">
+						Invalid Amount
+					</div>
+
 
 
                     <div class="form-group">
